@@ -6,6 +6,6 @@ export type Invite = {
 export const Invites: Record<string, Invite> = {
     kalleniusFamily: {
         displayName: "Familjen Källenius",
-        eventIds: ["Tockarpsfest"]
+        eventIds: ["Tockarpsfest", "Molinvägenfest"]
     }
 }

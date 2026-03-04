@@ -7,10 +7,10 @@ function Events() {
 
     return(
         <div className="flex flex-col items-center justify-start pt-24 gap-2" >
-            <h1 className=" font-semibold text-4xl text-mauve-600 " >Festerlighterna</h1>
-            <p className="text-xl text-mauve-600 pt-4 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg man kan bara välja en!</p>
+            <h1 className=" font-semibold text-6xl text-mauve-600 " >Festerlighterna</h1>
+            <p className="text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             
-            <div className="grid grid-cols-2 max-w-7xl pt-12 p-2 bg-amber-200 " >
+            <div className="grid grid-cols-2 w-8/12 mt-6 p-4  " >
                 {events.map((event) => (
                     <EventCard key={event.id} event={event} />
                 ))}
