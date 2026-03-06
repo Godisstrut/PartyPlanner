@@ -31,5 +31,13 @@ export const EventsData: Record<string, Event> = { // Fest data
         time: "18:00",
         location: "Kägle väg 9, 266 98 Hjärnarp",
         description: "Gammalgod fest på Margretetorps Gästgifvaregård! Festen inleds men fördrink och mingel på utomhus platsen, som sedan går vidare till middag och fest inne på deras största lokal. "
+    },
+    fest4: {
+        id: "MolinvägenVin",
+        title: "Vinbjudning",
+        date: "2026/10/7",
+        time: "17:00",
+        location: "Molinvägen",
+        description: "Storslagen vinbjudning på molinvägen, klä dig i dina bästa partykläder och kom med ett glatt humör!"
     }
 }

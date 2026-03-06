@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
     return(
-        <div className="flex flex-col items-center justify-start pt-64 gap-2 text-white " >
+        <div className="flex flex-col items-center justify-start pt-64 gap-2 text-white" >
             <p className="text-xl text-mauve-600 ">Du är härmed inbjuden till...</p>
             <h1 className="font-bold text-8xl text-mauve-600 m-2 " >Pauls födelsedagsfester</h1>
             <h1 className="font-bold text-8xl text-pink-500 m-2 " >60 år</h1>
