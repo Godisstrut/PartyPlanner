@@ -1,16 +1,38 @@
 import { Link } from "react-router-dom";
+import { easeInOut, motion } from "motion/react"
+import Button from "../Components/Button";
 
 function Home() {
+
+    const container = {
+        hidden: { opacity: 0},
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+                ease: easeInOut,
+            }
+        }
+    }
+    const item = {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0 }
+    }
+
     return(
-        <div className="flex flex-col items-center justify-start pt-64 gap-2 text-white" >
-            <p className="text-xl text-mauve-600 ">Du är härmed inbjuden till...</p>
-            <h1 className="font-bold text-8xl text-mauve-600 m-2 " >Pauls födelsedagsfester</h1>
-            <h1 className="font-bold text-8xl text-pink-500 m-2 " >60 år</h1>
-            <p className="text-2xl text-mauve-600 p-4" >Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier. </p>
+        <motion.div className="flex flex-col items-center justify-start pt-64 gap-2 text-white bg-linear-to-b from-pink-100 to-mauve-100 h-screen w-screen"
+        variants={container}
+        initial="hidden"
+        animate="show"
+        >
+            <motion.p variants={item} className="text-xl text-mauve-600 ">Du är härmed inbjuden till...</motion.p>
+            <motion.h1 variants={item} className="font-bold text-8xl text-mauve-600 m-2 " >Pauls födelsedagsfester</motion.h1>
+            <motion.h1 variants={item} className="font-bold text-9xl text-pink-500 m-2 " >60 år</motion.h1>
+            <motion.p variants={item} className="text-2xl text-mauve-600 p-4" >Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier. </motion.p>
             <Link to="/events">
-                <button className="font-semibold text-2xl bg-pink-500 hover:bg-pink-600 hover:scale-110 py-4 px-8 rounded-2xl transition duration-200 mt-8" >Utforska alla fester</button>
+                <Button text="Utforska alla fester" />
             </Link>
-        </div>
+        </motion.div>
     )
 }
 

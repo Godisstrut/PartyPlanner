@@ -1,12 +1,16 @@
 import EventCard from "../Components/EventCard";
 import { EventsData } from "../Data/EventsData";
+import { motion } from "motion/react"
 
 function Events() {
 
     const events = Object.values(EventsData)
 
     return(
-        <div className="flex flex-col items-center justify-start pt-24 gap-2" >
+        <motion.div className="flex flex-col items-center justify-start pt-24 gap-2"
+        initial= {{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}> 
             <h1 className=" font-semibold text-6xl text-mauve-600 " >Festerlighterna</h1>
             <p className="text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             
@@ -15,7 +19,7 @@ function Events() {
                     <EventCard key={event.id} event={event} />
                 ))}
             </div>
-        </div>
+        </motion.div>
     )
 }
 
