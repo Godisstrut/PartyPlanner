@@ -15,10 +15,10 @@ function Events() {
             <Link to="/" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Tillbaka
             </Link>
-            <h1 className=" font-semibold text-6xl text-mauve-600 " >Festerlighterna</h1>
+            <h1 className=" font-semibold text-6xl text-mauve-700 " >Festerlighterna</h1>
             <p className="text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2  w-8/12 mt-6 p-4  " >
+            <div className="grid grid-cols-1 lg:grid-cols-2 w-9/12 mt-4 p-4 " >
                 {events.map((event) => (
                     <EventCard key={event.id} event={event} />
                 ))}

@@ -18,7 +18,7 @@ function EventDetail() {
             <Link to="/events" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Alla fester
             </Link>
-            <h1 className="text-4xl text-mauve-600 p-4 " >{event.title}</h1>
+            <h1 className="text-4xl text-mauve-700 p-4 " >{event.title}</h1>
             <div className="border-t border-mauve-500 py-2">
                 <p className="text-xl max-w-2xl p-4" >{event.description}</p>
             </div>
@@ -31,13 +31,13 @@ function EventDetail() {
             <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200" >
                 <h1 className="text-2xl text-mauve-600 pb-6 " >Boka din plats</h1>
                 <form className="flex flex-col justify-start " >
-                    <label htmlFor="name" className="text-xl text-mauve-600" >Namn:</label>
+                    <label htmlFor="name" className="text-xl text-mauve-700" >Namn:</label>
                     <input type="text" placeholder="Namn" className="border p-2 m-2 rounded" />
-                    <label htmlFor="email" className="text-xl text-mauve-600" >E-post:</label>
+                    <label htmlFor="email" className="text-xl text-mauve-700" >E-post:</label>
                     <input type="email" placeholder="E-post" className="border p-2 m-2 rounded" />
-                    <label htmlFor="message" className="text-xl text-mauve-600" >Meddelande (valfritt):</label>
-                    <textarea id="message" placeholder="Särkilda önskemål" className="border p-2 m-2 rounded" ></textarea>
-                    <button className="font-semibold text-white text-2xl bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-2xl transition duration-200 mt-8" >
+                    <label htmlFor="message" className="text-xl text-mauve-700" >Meddelande (valfritt):</label>
+                    <textarea rows={5} id="message" placeholder="Särkilda önskemål" className="border p-2 m-2 rounded" ></textarea>
+                    <button className="font-semibold text-white text-2xl bg-pink-500 hover:bg-pink-600 hover:cursor-pointer py-2 px-4 rounded-2xl transition duration-200 mt-8" >
                         Boka
                     </button>
                 </form>

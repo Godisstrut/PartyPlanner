@@ -6,14 +6,14 @@ export type Invite = {
 export const Invites: Record<string, Invite> = {
     kalleniusFamily: {
         displayName: "Familjen Källenius",
-        eventIds: ["Tockarpsfest", "Molinvägenfest"]
+        eventIds: ["tockarpsfest", "molinvagenfest"]
     },
     stockholmFriends: {
         displayName: "Stockholms vänner",
-        eventIds: ["Molinvägenfest", "MolinvägenVin"]
+        eventIds: ["molinvagenfest", "molinvagenvin"]
     },
     closeRelatives: {
         displayName: "Nära släktingar",
-        eventIds: ["Tockarpsfest", "Margretetorp"]
+        eventIds: ["tockarpsfest", "margretetorp"]
     }
 }

@@ -24,7 +24,7 @@ export const EventsData: Record<string, Event> = { // Fest data
         date: "Fredag den 2 Oktober",
         time: "19:00",
         location: "Molinvägen",
-        description: "Storslagen fest på molinvägen, klä dig i dina bästa partykläder och kom med ett glatt humör!",
+        description: "Storslagen fest på molinvägen! Kommer bjudas rikligt på dricka, klä dig i dina bästa partykläder och kom med ett glatt humör!",
         spots: 30
     },
     margretetorp: {
@@ -47,8 +47,8 @@ export const EventsData: Record<string, Event> = { // Fest data
     },
     tockarpvin: {
         id: "tockarpvin",
-        title: "Söndag den 11 Oktober",
-        date: "2026/10/8",
+        title: "Vinbjudning på Tockarp",
+        date: "Söndag den 11 Oktober",
         time: "14:00",
         location: "Molinvägen",
         description: "Storslagen vinbjudning på Tockarp, klä dig i dina bästa partykläder och kom med ett glatt humör!",
