@@ -1,6 +1,5 @@
 import { EventsData } from "../Data/EventsData";
 import { useParams } from "react-router-dom";
-import Button from "../Components/Button";
 import { motion } from "motion/react"
 import { Link } from "react-router-dom";
 
@@ -16,25 +15,31 @@ function EventDetail() {
         initial= {{ opacity: 0, y: 20 }}
         animate={{opacity: 1, y:0}}
         transition={{duration: 0.4}} >
-            <Link to="/events" className="text-primary text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
+            <Link to="/events" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Alla fester
             </Link>
             <h1 className="text-4xl text-mauve-600 p-4 " >{event.title}</h1>
-            <p className="text-xl max-w-2xl text-center p-4" >{event.description}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 p-6" >
+            <div className="border-t border-mauve-500 py-2">
+                <p className="text-xl max-w-2xl p-4" >{event.description}</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 p-6" >
                 <p className="text-lg" >{event.date}</p>
                 <p className="text-lg" >{event.time}</p>
                 <p className="text-lg" >{event.location}</p>
                 <p className="text-lg" >Antal platser kvar: {event.spots}</p>
             </div>
-            <div className="max-w-2xl border p-6 rounded-lg bg-white" >
-                <h1 className="text-2xl text-mauve-600 p-4 " >Boka din plats</h1>
+            <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200" >
+                <h1 className="text-2xl text-mauve-600 pb-6 " >Boka din plats</h1>
                 <form className="flex flex-col justify-start " >
                     <label htmlFor="name" className="text-xl text-mauve-600" >Namn:</label>
                     <input type="text" placeholder="Namn" className="border p-2 m-2 rounded" />
                     <label htmlFor="email" className="text-xl text-mauve-600" >E-post:</label>
                     <input type="email" placeholder="E-post" className="border p-2 m-2 rounded" />
-                    <Button text="Boka" />
+                    <label htmlFor="message" className="text-xl text-mauve-600" >Meddelande (valfritt):</label>
+                    <textarea id="message" placeholder="Särkilda önskemål" className="border p-2 m-2 rounded" ></textarea>
+                    <button className="font-semibold text-white text-2xl bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-2xl transition duration-200 mt-8" >
+                        Boka
+                    </button>
                 </form>
             </div>
         </motion.div>

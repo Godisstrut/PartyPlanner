@@ -13,16 +13,20 @@ function EventCard({ event }: EventCardProps) {
     const time = event.time;
     const location = event.location;
     const description = event.description;
+    const spots = event.spots;
 
     return(
         <Link to={`/events/${event.id}`} >
-            <motion.div className="grid-rows-2 h-10/12 bg-white hover:cursor-pointer hover:shadow-xl hover:-translate-y-1 transition duration-300 ease-in-out rounded-xl p-6 m-6 outline-1  ">
-                <h1 className="font-semibold text-2xl text-mauve-600" > {title}</h1>
-                <p className="text-xl text-mauve-600 mt-4 " > {description}</p>
-                <div className="mt-4" >
-                    <p className="text-xl text-mauve-600 p-2" > {date}</p>
-                    <p className="text-xl text-mauve-600 p-2" > {time}</p>
-                    <p className="text-xl text-mauve-600 p-2" > {location}</p>
+            <motion.div className="grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500"> 
+                <div className="flex items-start justify-between" >
+                    <h1 className="font-semibold text-3xl text-mauve-600" > {title}</h1>
+                    <span className=" font-medium text-sm tracking-[0.2em] uppercase bg-pink-50 rounded-full px-4 py-1" >{spots} Platser kvar</span>
+                </div>
+                <p className="text-xl text-mauve-600 mt-4 leading-relaxed mb-6 line-clamp-3 " > {description}</p>
+                <div className="mt-4 border-t border-mauve-300 pt-4 " >
+                    <p className="text-xl text-mauve-600 p-1" > {date}</p>
+                    <p className="text-xl text-mauve-600 p-1" > {time}</p>
+                    <p className="text-xl text-mauve-600 p-1" > {location}</p>
                 </div>
             </motion.div>
         </Link>

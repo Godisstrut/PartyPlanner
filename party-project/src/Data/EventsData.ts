@@ -12,7 +12,7 @@ export const EventsData: Record<string, Event> = { // Fest data
     tockarpsfest: {
         id: "tockarpsfest",
         title: "Middag på Tockarp",
-        date: "2026/10/3",
+        date: "Lördag den 3 Oktober",
         time: "18:00",
         location: "Tockarpsvägen",
         description: "Tjusig middagsbjuddning på t-100! Tre rätters middag med bubbel som fördrink kommer serveras, klä dig snyggt och kom som du är. ",
@@ -21,7 +21,7 @@ export const EventsData: Record<string, Event> = { // Fest data
     molinvagenfest: {
         id: "molinvagenfest",
         title: "Stockholms fest",
-        date: "2026/10/4",
+        date: "Fredag den 2 Oktober",
         time: "19:00",
         location: "Molinvägen",
         description: "Storslagen fest på molinvägen, klä dig i dina bästa partykläder och kom med ett glatt humör!",
@@ -30,7 +30,7 @@ export const EventsData: Record<string, Event> = { // Fest data
     margretetorp: {
         id: "margretetorp",
         title: "Fest på Margretetorps Gästgifvaregård",
-        date: "2026/09/30",
+        date: "Lördag den 10 Oktober",
         time: "18:00",
         location: "Kägle väg 9, 266 98 Hjärnarp",
         description: "Gammalgod fest på Margretetorps Gästgifvaregård! Festen inleds men fördrink och mingel på utomhus platsen, som sedan går vidare till middag och fest inne på deras största lokal. ",
@@ -39,7 +39,7 @@ export const EventsData: Record<string, Event> = { // Fest data
     molinvagenvin: {
         id: "molinvagenvin",
         title: "Vinbjudning",
-        date: "2026/10/7",
+        date: "Fredag den 9 Oktober",
         time: "17:00",
         location: "Molinvägen",
         description: "Storslagen vinbjudning på molinvägen, klä dig i dina bästa partykläder och kom med ett glatt humör!",
@@ -47,7 +47,7 @@ export const EventsData: Record<string, Event> = { // Fest data
     },
     tockarpvin: {
         id: "tockarpvin",
-        title: "Vinbjudning på T-00",
+        title: "Söndag den 11 Oktober",
         date: "2026/10/8",
         time: "14:00",
         location: "Molinvägen",
@@ -56,8 +56,8 @@ export const EventsData: Record<string, Event> = { // Fest data
     },
     margretetorpmiddag: {
         id: "margretetorpmiddag",
-        title: "Middag på Margretetorps Gästgifvaregård",
-        date: "2026/09/29",
+        title: "Middag på Margretetorps",
+        date: "Lördag den 17 Oktober",
         time: "18:00",
         location: "Kägle väg 9, 266 98 Hjärnarp",
         description: "Gammalgod middag på Margretetorps Gästgifvaregård! Festen inleds men fördrink och mingel på utomhus platsen, som sedan går vidare till middag och fest inne på deras största lokal. ",
