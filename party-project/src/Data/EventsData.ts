@@ -8,7 +8,7 @@ export type Event = { // Type alias av hur en fest ska se ut
     spots: number;
 }
 
-export const EventsData: Record<string, Event> = { // Fest data
+export const EventsData: Record<string, Event> = { // Fest data objekt
     tockarpsfest: {
         id: "tockarpsfest",
         title: "Middag på Tockarp",
