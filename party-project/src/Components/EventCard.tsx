@@ -5,9 +5,10 @@ import { Calendar, Clock8, MapPinHouse } from "lucide-react";
 
 type EventCardProps = {
     event: Event
+    basePath?: string
 }
 
-function EventCard({ event }: EventCardProps) {
+function EventCard({ event, basePath = "/events" }: EventCardProps) {
 
     const title = event.title;
     const date = event.date;
@@ -17,7 +18,7 @@ function EventCard({ event }: EventCardProps) {
     const spots = event.spots;
 
     return(
-        <Link to={`/events/${event.id}`} >
+        <Link to={`${basePath}/${event.id}`} >
             <motion.div className="grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500"> 
                 <div className="flex items-start justify-between" >
                     <h1 className="font-semibold text-3xl text-mauve-700" > {title}</h1>

@@ -5,6 +5,7 @@ import Events from "./Pages/Events";
 import Admin from "./Pages/Admin";
 import Footer from "./Components/Footer";
 import EventDetail from './Components/EventDetail';
+import AdminEventDetails from './Components/AdminEventDetails';
 
 function App() {
   return(
@@ -15,6 +16,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:eventId" element={<AdminEventDetails />} />
         </Routes>
       </div>
       <Footer />
