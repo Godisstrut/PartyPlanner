@@ -1,6 +1,7 @@
 import type { Event } from "../Data/EventsData";
 import { motion } from "motion/react"
 import { Link } from "react-router-dom";
+import { Calendar, Clock8, MapPinHouse } from "lucide-react";
 
 type EventCardProps = {
     event: Event
@@ -24,9 +25,9 @@ function EventCard({ event }: EventCardProps) {
                 </div>
                 <p className="text-xl text-mauve-600 mt-4 leading-relaxed mb-6 line-clamp-3 " > {description}</p>
                 <div className="mt-4 border-t border-mauve-300 pt-4 " >
-                    <p className="text-xl text-mauve-700 p-1" > {date}</p>
-                    <p className="text-xl text-mauve-700 p-1" > {time}</p>
-                    <p className="text-xl text-mauve-700 p-1" > {location}</p>
+                    <p className="text-xl text-mauve-700 p-2" > <Calendar className="inline-block mr-1" /> {date}</p>
+                    <p className="text-xl text-mauve-700 p-2" > <Clock8 className="inline-block mr-1" /> {time}</p>
+                    <p className="text-xl text-mauve-700 p-2" > <MapPinHouse className="inline-block mr-1" /> {location}</p>
                 </div>
             </motion.div>
         </Link>

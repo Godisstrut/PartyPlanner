@@ -25,9 +25,9 @@ function Home() {
         initial="hidden"
         animate="show"
         >
-            <motion.p variants={item} className="text-xl text-mauve-600 ">Du är härmed inbjuden till...</motion.p>
-            <motion.h1 variants={item} className="font-bold text-8xl text-mauve-600 m-2 " >Pauls födelsedagsfester</motion.h1>
-            <motion.h1 variants={item} className="font-bold text-9xl text-pink-500 m-2 " >60 år</motion.h1>
+            <motion.p variants={item} className="text-xl text-mauve-700 ">Du är härmed inbjuden till...</motion.p>
+            <motion.h1 variants={item} className="font-bold text-8xl text-mauve-700 m-2 " >Pauls födelsedagsfester</motion.h1>
+            <motion.h1 variants={item} className="font-bold text-9xl text-pink-600 m-2 " >60 år</motion.h1>
             <motion.p variants={item} className="text-2xl text-mauve-600 p-4" >Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier. </motion.p>
             <Link to="/events">
                 <Button text="Utforska alla fester" />

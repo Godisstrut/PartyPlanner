@@ -2,6 +2,7 @@ import { EventsData } from "../Data/EventsData";
 import { useParams } from "react-router-dom";
 import { motion } from "motion/react"
 import { Link } from "react-router-dom";
+import { Calendar, Clock8, MapPinHouse, Users } from "lucide-react";
 
 function EventDetail() {
 
@@ -18,15 +19,15 @@ function EventDetail() {
             <Link to="/events" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Alla fester
             </Link>
-            <h1 className="text-4xl text-mauve-700 p-4 " >{event.title}</h1>
+            <h1 className="text-5xl text-mauve-700 p-4 " >{event.title}</h1>
             <div className="border-t border-mauve-500 py-2">
-                <p className="text-xl max-w-2xl p-4" >{event.description}</p>
+                <p className="text-2xl max-w-2xl p-4" >{event.description}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 p-6" >
-                <p className="text-lg" >{event.date}</p>
-                <p className="text-lg" >{event.time}</p>
-                <p className="text-lg" >{event.location}</p>
-                <p className="text-lg" >Antal platser kvar: {event.spots}</p>
+                <p className="text-xl" > <Calendar className="inline-block mr-2 " /> {event.date}</p>
+                <p className="text-xl" > <Clock8 className="inline-block mr-2" /> {event.time}</p>
+                <p className="text-xl" > <MapPinHouse className="inline-block mr-2" /> {event.location}</p>
+                <p className="text-xl" > <Users className="inline-block mr-2" /> Antal platser kvar: {event.spots}</p>
             </div>
             <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200" >
                 <h1 className="text-2xl text-mauve-600 pb-6 " >Boka din plats</h1>
