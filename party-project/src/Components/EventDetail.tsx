@@ -6,6 +6,8 @@ import { Calendar, Clock8, MapPinHouse, Users } from "lucide-react";
 
 function EventDetail() {
 
+    
+
     const params = useParams<{eventId: string}>()
     const eventId = params.eventId
     const event = EventsData[eventId as string]

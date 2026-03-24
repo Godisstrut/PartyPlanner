@@ -19,7 +19,7 @@ function App() {
           <Route path="/admin/:eventId" element={<AdminEventDetails />} />
         </Routes>
       </div>
-      <Footer />
+      { <Footer /> }
     </div>
   )
 }
