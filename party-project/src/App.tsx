@@ -6,6 +6,8 @@ import Admin from "./Pages/Admin";
 import Footer from "./Components/Footer";
 import EventDetail from './Components/EventDetail';
 import AdminEventDetails from './Components/AdminEventDetails';
+import InviteEventDetail from './Pages/InviteEventDetail';
+import InvitePage from './Pages/InvitePage';
 
 function App() {
   return(
@@ -17,6 +19,8 @@ function App() {
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/:eventId" element={<AdminEventDetails />} />
+          <Route path="/invite/:token" element={<InvitePage />} />
+          <Route path="/invite/:token/:eventId" element={<InviteEventDetail />} />
         </Routes>
       </div>
       <Footer />

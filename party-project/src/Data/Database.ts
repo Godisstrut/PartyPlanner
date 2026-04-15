@@ -38,10 +38,6 @@ export type RsvpRow = {
     updated_at: string
 }
 
-// App types
-// camelCase types used throughout React components
-// Services map DB rows → these types before returning
-
 export type Event = {
     id: string        // the uuid from the DB
     slug: string      // e.g. "tockarpsfest" — used in URLs
