@@ -17,8 +17,8 @@ function Events() {
             <Link to="/" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Tillbaka
             </Link>
-            <h1 className=" font-semibold text-6xl text-mauve-700 " >Festerlighterna</h1>
-            <p className="text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
+            <h1 className=" font-semibold text-4xl lg:text-6xl text-mauve-700 " >Festerlighterna</h1>
+            <p className="text-center md:text-left md:text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             {loading && (
                 <p className="text-mauve-500 mt-12 animate-pulse">Laddar fester...</p>
             )}
@@ -26,7 +26,7 @@ function Events() {
                 <p className="text-red-500 mt-12">Något gick fel: {error}</p>
             )}
             {!loading && !error && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 w-10/12 mt-4 p-4 " >
+                <div className="grid grid-cols-1 xl:grid-cols-2 w-10/12 mt-4 p-4 " >
                 {events.map((event) => ( // Loopa igenom arrayen av event-objekt och rendera en EventCard för varje event
                     <EventCard key={event.id} event={event} />
                 ))}
