@@ -12,11 +12,11 @@ type EventCardProps = {
 function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) {
     return (
         <Link to={`${basePath}/${event.slug}`}>
-            <motion.div className="grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500">
+            <motion.div className="group grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500">
                 <div className="flex items-start justify-between gap-2">
-                    <h1 className="font-semibold text-3xl text-mauve-700">{event.title}</h1>
+                    <h1 className="font-semibold text-3xl text-mauve-700 group-hover:text-[#d4b96a] transition-colors duration-300">{event.title}</h1>
                     <div className="flex flex-col items-end gap-1 shrink-0">
-                        <span className="font-medium text-sm tracking-[0.2em] uppercase bg-pink-50 rounded-full px-4 py-1">
+                        <span className="font-medium text-sm tracking-[0.2em] uppercase bg-pink-100  rounded-full px-4 py-1">
                             {event.spots} Platser kvar
                         </span>
                         {rsvpStatus === true && (

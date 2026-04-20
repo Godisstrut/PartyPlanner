@@ -7,9 +7,10 @@ function Events() {
 
     
     const {events, loading, error } = useEvents() // Hämta event-objekt från custom hook
+    console.log("events:", events, "loading:", loading, "error:", error) 
 
     return(
-        <motion.div className="flex flex-col items-center justify-start pt-24 gap-2"
+        <motion.div className="flex flex-col items-center justify-start pt-24 gap-2 "
         initial= {{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}> 
@@ -24,7 +25,7 @@ function Events() {
             {error && (
                 <p className="text-red-500 mt-12">Något gick fel: {error}</p>
             )}
-            {!loading && events.length === 0 && (
+            {!loading && !error && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 w-10/12 mt-4 p-4 " >
                 {events.map((event) => ( // Loopa igenom arrayen av event-objekt och rendera en EventCard för varje event
                     <EventCard key={event.id} event={event} />

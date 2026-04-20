@@ -5,14 +5,15 @@ import Events from "./Pages/Events";
 import Admin from "./Pages/Admin";
 import Footer from "./Components/Footer";
 import EventDetail from './Components/EventDetail';
-import AdminEventDetails from './Components/AdminEventDetails';
+import AdminEventDetails from './Pages/AdminEventDetails';
 import InviteEventDetail from './Pages/InviteEventDetail';
 import InvitePage from './Pages/InvitePage';
 
 function App() {
+  console.log("URL:", import.meta.env.VITE_SUPABASE_URL)
   return(
-    <div className="flex flex-col min-h-screen bg-mist-50" >
-      <div className="grow" >
+    <div className="flex flex-col min-h-screen bg-linear-to-b from-pink-100 to-mauve-100" >
+      <div className="grow " >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
