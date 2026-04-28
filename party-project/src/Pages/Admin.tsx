@@ -43,7 +43,7 @@ function Admin() {
     return (
         <div className="min-h-screen bg-cream-100">
 
-            {/* ── Header ───────────────────────────────────────────────────── */}
+            {/*Header */}
             <div className="bg-white border-b border-mauve-100 px-8 py-6">
                 <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-500 mb-1">
                     Administration
@@ -55,7 +55,7 @@ function Admin() {
 
             <div className="max-w-9/10 mx-auto px-6 py-8 grid grid-cols-1 xl:grid-cols-3 gap-8">
 
-                {/* ── Left col: Send invite form ────────────────────────────── */}
+                {/*Send invite form */}
                 <div className="xl:col-span-1">
                     <div className="bg-white rounded-2xl border border-mauve-100 shadow-sm overflow-hidden">
 
@@ -157,7 +157,7 @@ function Admin() {
                         </div>
                     </div>
 
-                    {/* ── Stats cards ───────────────────────────────────────── */}
+                    {/* Stats cards */}
                     <div className="grid grid-cols-2 gap-3 mt-4">
                         <div className="bg-white rounded-xl border border-mauve-100 p-4 text-center">
                             <p className="font-heading text-3xl text-mauve-700">{invites.length}</p>
@@ -172,7 +172,7 @@ function Admin() {
                     </div>
                 </div>
 
-                {/* ── Right col: tabs for events / invites ──────────────────── */}
+                {/* Right col: tabs for events / invites */}
                 <div className="xl:col-span-2">
 
                     {/* Tab switcher */}
