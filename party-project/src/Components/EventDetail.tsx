@@ -52,12 +52,10 @@ function EventDetail() {
                 <form className="flex flex-col justify-start">
                     <label htmlFor="name" className="text-xl text-mauve-700">Namn:</label>
                     <input type="text" placeholder="Namn" className="border p-2 m-2 rounded" />
-                    <label htmlFor="email" className="text-xl text-mauve-700">E-post:</label>
-                    <input type="email" placeholder="E-post" className="border p-2 m-2 rounded" />
                     <label htmlFor="message" className="text-xl text-mauve-700">Meddelande (valfritt):</label>
                     <textarea rows={5} id="message" placeholder="Särkilda önskemål" className="border p-2 m-2 rounded" />
                     <button className="font-semibold text-white text-2xl bg-pink-500 hover:bg-pink-600 hover:cursor-pointer py-2 px-4 rounded-2xl transition duration-200 mt-8">
-                        Boka
+                        Jag kommer! 🎉
                     </button>
                 </form>
             </div>
