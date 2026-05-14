@@ -1,16 +1,21 @@
+import { useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "motion/react"
 import { Calendar, Clock8, MapPinHouse, Users } from "lucide-react"
-import { useGuestInvite } from "../Hooks/UsePartyData";
+import { useGuestInvite } from "../Hooks/UsePartyData"
 
 function InviteEventDetail() {
     const { token, eventId } = useParams<{ token: string; eventId: string }>()
     const { view, rsvp, rsvping, loading, error } = useGuestInvite(token)
 
+    const [name, setName] = useState("")
+    const [message, setMessage] = useState("")
+    const [submitted, setSubmitted] = useState(false)
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <p className="text-mauve-500 animate-pulse">Laddar...</p>
+                <p className="text-mauve-500 animate-pulse">Laddar fest...</p>
             </div>
         )
     }
@@ -24,26 +29,27 @@ function InviteEventDetail() {
         )
     }
 
-    // Find the specific event — must be in the guest's group
     const event = view.events.find((e) => e.id === eventId || e.slug === eventId)
 
     if (!event) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-                <p className="text-xl text-mauve-600">
-                    Du är inte inbjuden till den här festen.
-                </p>
-                <Link
-                    to={`/invite/${token}`}
-                    className="text-sm tracking-[0.3em] uppercase hover:underline"
-                >
+                <p className="text-xl text-mauve-600">Du är inte inbjuden till den här festen.</p>
+                <Link to={`/invite/${token}`} className="text-sm tracking-[0.3em] uppercase hover:underline">
                     ← Dina fester
                 </Link>
             </div>
         )
     }
 
-    const currentRsvp = view.rsvps[event.id]
+    const alreadyGoing = view.rsvps[event.id] === true
+
+    async function handleRsvp(e: React.FormEvent) {
+        e.preventDefault()
+        if (!name.trim()) return
+        await rsvp(event!.id, true)
+        setSubmitted(true)
+    }
 
     return (
         <motion.div
@@ -52,10 +58,7 @@ function InviteEventDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
         >
-            <Link
-                to={`/invite/${token}`}
-                className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform"
-            >
+            <Link to={`/invite/${token}`} className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform">
                 ← Dina fester
             </Link>
 
@@ -72,56 +75,57 @@ function InviteEventDetail() {
                 <p className="text-xl"><Users className="inline-block mr-2" />Antal platser kvar: {event.spots}</p>
             </div>
 
-            {/* RSVP section */}
             <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200">
-                <h2 className="text-2xl text-mauve-600 pb-2">Kommer du?</h2>
-
-                {currentRsvp === true && (
-                    <p className="text-green-600 font-medium mb-4">
-                        ✓ Du har tackat ja till den här festen.
-                    </p>
-                )}
-                {currentRsvp === false && (
-                    <p className="text-mauve-500 mb-4">
-                        Du har tackat nej till den här festen.
-                    </p>
-                )}
-                {currentRsvp === undefined && (
-                    <p className="text-mauve-500 mb-4">Du har inte svarat ännu.</p>
-                )}
-
-                <div className="flex gap-4 mt-2">
-                    <button
-                        onClick={() => rsvp(event.id, true)}
-                        disabled={rsvping || currentRsvp === true}
-                        className={`flex-1 font-semibold text-xl py-3 px-6 rounded-2xl transition duration-200
-                            ${currentRsvp === true
-                                ? "bg-green-500 text-white cursor-default"
-                                : "bg-pink-500 hover:bg-pink-600 text-white hover:cursor-pointer"
-                            }
-                            disabled:opacity-60`}
+                {(alreadyGoing || submitted) ? (
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-col items-center text-center gap-3 py-6"
                     >
-                        {rsvping ? "Sparar..." : "Ja, jag kommer!"}
-                    </button>
-
-                    <button
-                        onClick={() => rsvp(event.id, false)}
-                        disabled={rsvping || currentRsvp === false}
-                        className={`flex-1 font-semibold text-xl py-3 px-6 rounded-2xl border transition duration-200
-                            ${currentRsvp === false
-                                ? "border-mauve-400 text-mauve-500 bg-mauve-50 cursor-default"
-                                : "border-mauve-300 text-mauve-600 hover:border-mauve-500 hover:cursor-pointer"
-                            }
-                            disabled:opacity-60`}
-                    >
-                        Tyvärr kan jag inte
-                    </button>
-                </div>
-
-                {currentRsvp !== undefined && (
-                    <p className="text-sm text-mauve-400 mt-4 text-center">
-                        Du kan ändra ditt svar när som helst.
-                    </p>
+                        <div className="text-4xl">🎉</div>
+                        <h2 className="text-2xl text-mauve-600">Vi ses där!</h2>
+                        <p className="text-mauve-500">
+                            Din plats på <span className="font-semibold">{event.title}</span> är bokad.
+                        </p>
+                        <Link
+                            to={`/invite/${token}`}
+                            className="mt-4 text-sm tracking-[0.3em] uppercase hover:underline text-mauve-400"
+                        >
+                            ← Dina fester
+                        </Link>
+                    </motion.div>
+                ) : (
+                    <>
+                        <h2 className="text-2xl text-mauve-600 pb-6">Boka din plats</h2>
+                        <form onSubmit={handleRsvp} className="flex flex-col justify-start">
+                            <label htmlFor="name" className="text-xl text-mauve-700">Namn:</label>
+                            <input
+                                id="name"
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Namn"
+                                required
+                                className="border p-2 m-2 rounded"
+                            />
+                            <label htmlFor="message" className="text-xl text-mauve-700">Meddelande (valfritt):</label>
+                            <textarea
+                                id="message"
+                                rows={5}
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                placeholder="Särskilda önskemål"
+                                className="border p-2 m-2 rounded"
+                            />
+                            <button
+                                type="submit"
+                                disabled={rsvping || !name.trim()}
+                                className="font-semibold text-white text-2xl bg-pink-500 hover:bg-pink-600 hover:cursor-pointer py-2 px-4 rounded-2xl transition duration-200 mt-8"
+                            >
+                                {rsvping ? "Sparar..." : "Jag kommer! 🎉"}
+                            </button>
+                        </form>
+                    </>
                 )}
             </div>
         </motion.div>

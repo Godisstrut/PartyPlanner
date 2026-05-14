@@ -34,13 +34,7 @@ function InvitePage() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
         >
             <h1 className="font-semibold text-6xl text-mauve-700">Festerlighterna</h1>
-            <p className="text-xl text-mauve-600 pt-2">
-                Välkommen, <span className="font-semibold">{view.group.name}</span>!
-            </p>
-            <p className="text-mauve-500 pt-1">
-                Du är inbjuden till {view.events.length} av festerna nedan.
-            </p>
-
+            <p className="text-center md:text-left md:text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 w-10/12 mt-4 p-4">
                 {view.events.map((event) => (
                     <EventCard
