@@ -1,15 +1,31 @@
-import type { Event } from "../Data/Database";
-import { motion } from "motion/react";
-import { Link } from "react-router-dom";
-import { Calendar, Clock8, MapPinHouse } from "lucide-react";
+import { useEffect, useState } from "react"
+import type { Event } from "../Data/Database"
+import { motion } from "motion/react"
+import { Link } from "react-router-dom"
+import { Calendar, Clock8, MapPinHouse } from "lucide-react"
+import { supabase } from "../Lib/SupabaseClient";
 
 type EventCardProps = {
     event: Event
     basePath?: string
-    rsvpStatus?: boolean  // true = going, false = declined, undefined = pending
+    rsvpStatus?: boolean
 }
 
 function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) {
+    const [spots, setSpots] = useState(event.spots)
+
+    // Fetch live spot count directly — always fresh, no parent refetch needed
+    useEffect(() => {
+        supabase
+            .from("events")
+            .select("spots")
+            .eq("id", event.id)
+            .single()
+            .then(({ data }) => {
+                if (data) setSpots(data.spots)
+            })
+    }, [event.id])
+
     return (
         <Link to={`${basePath}/${event.slug}`}>
             <motion.div className="group grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500">
@@ -17,7 +33,7 @@ function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) 
                     <h1 className="font-semibold text-lg lg:text-3xl text-mauve-700 group-hover:text-[#d4b96a] transition-colors duration-300">{event.title}</h1>
                     <div className="flex flex-wrap sm:flex-col items-end gap-1 md:shrink-0">
                         <span className="font-medium text-xs lg:text-sm tracking-[0.2em] uppercase bg-pink-200 rounded-full px-4 py-1">
-                            {event.spots} Platser kvar
+                            {spots} Platser kvar
                         </span>
                         {rsvpStatus === true && (
                             <span className="text-xs font-medium tracking-wide uppercase bg-green-100 text-green-700 rounded-full px-3 py-1">

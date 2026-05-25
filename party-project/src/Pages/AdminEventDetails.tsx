@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom"
 import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, XCircle, Clock } from "lucide-react"
-import { useEvent } from "../Hooks/UsePartyData";
-import { useEventGuests } from "../Hooks/UseEventGuests";
+import { useEvent } from "../Hooks/UsePartyData"
+import { useEventGuests } from "../Hooks/UseEventGuests"
 
 function AdminEventDetails() {
     const { eventId } = useParams<{ eventId: string }>()
@@ -23,37 +23,23 @@ function AdminEventDetails() {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-4">
                 <p className="text-xl text-mauve-600">Inget event hittades!</p>
-                <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline">
-                    ← Admin
-                </Link>
+                <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline">← Admin</Link>
             </div>
         )
     }
 
     return (
         <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16">
-            <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">
-                ← Admin
-            </Link>
+            <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">← Admin</Link>
 
-            {/* Event header */}
             <h1 className="text-3xl font-semibold text-mauve-700 mb-2">{event.title}</h1>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
-                <p className="text-mauve-600 flex items-center gap-2">
-                    <Calendar size={16} /> {event.date}
-                </p>
-                <p className="text-mauve-600 flex items-center gap-2">
-                    <Clock8 size={16} /> {event.time}
-                </p>
-                <p className="text-mauve-600 flex items-center gap-2">
-                    <MapPinHouse size={16} /> {event.location}
-                </p>
-                <p className="text-mauve-600 flex items-center gap-2">
-                    <Users size={16} /> {summary?.spotsLeft ?? event.spots} platser kvar
-                </p>
+                <p className="text-mauve-600 flex items-center gap-2"><Calendar size={16} />{event.date}</p>
+                <p className="text-mauve-600 flex items-center gap-2"><Clock8 size={16} />{event.time}</p>
+                <p className="text-mauve-600 flex items-center gap-2"><MapPinHouse size={16} />{event.location}</p>
+                <p className="text-mauve-600 flex items-center gap-2"><Users size={16} />{summary?.spotsLeft ?? event.spots} platser kvar</p>
             </div>
 
-            {/* RSVP summary counters */}
             {summary && (
                 <div className="grid grid-cols-3 gap-4 mb-8">
                     <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-center">
@@ -71,10 +57,7 @@ function AdminEventDetails() {
                 </div>
             )}
 
-            {/* Guest list */}
             <div className="flex flex-col gap-6">
-
-                {/* Going */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-green-700 mb-3">
                         <CheckCircle size={18} /> Kommer ({summary?.going.length ?? 0})
@@ -90,7 +73,6 @@ function AdminEventDetails() {
                     )}
                 </section>
 
-                {/* Declined */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-mauve-500 mb-3">
                         <XCircle size={18} /> Kan inte komma ({summary?.declined.length ?? 0})
@@ -106,7 +88,6 @@ function AdminEventDetails() {
                     )}
                 </section>
 
-                {/* Pending */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-amber-600 mb-3">
                         <Clock size={18} /> Ej svarat ({summary?.pending.length ?? 0})
@@ -116,14 +97,9 @@ function AdminEventDetails() {
                     ) : (
                         <div className="flex flex-col gap-2">
                             {summary?.pending.map((email) => (
-                                <div
-                                    key={email}
-                                    className="flex items-center justify-between rounded-lg border border-mauve-100 bg-white px-4 py-3"
-                                >
+                                <div key={email} className="flex items-center justify-between rounded-lg border border-mauve-100 bg-white px-4 py-3">
                                     <span className="text-mauve-600">{email}</span>
-                                    <span className="text-xs text-amber-600 uppercase tracking-wide bg-amber-50 px-2 py-1 rounded-full">
-                                        Inväntar svar
-                                    </span>
+                                    <span className="text-xs text-amber-600 uppercase tracking-wide bg-amber-50 px-2 py-1 rounded-full">Inväntar svar</span>
                                 </div>
                             ))}
                         </div>
@@ -134,21 +110,19 @@ function AdminEventDetails() {
     )
 }
 
-type GuestRowProps = { guest: { email: string; groupName: string; answeredAt: string; going: boolean } }
+type GuestRowProps = { guest: { guestName: string; email: string; groupName: string; answeredAt: string } }
 
 function GuestRow({ guest }: GuestRowProps) {
     const date = new Date(guest.answeredAt).toLocaleDateString("sv-SE", {
-        day: "numeric",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
+        day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
     })
 
     return (
         <div className="flex items-center justify-between rounded-lg border border-mauve-100 bg-white px-4 py-3">
             <div>
-                <p className="text-mauve-700 font-medium">{guest.email}</p>
-                <p className="text-sm text-mauve-400">{guest.groupName}</p>
+                {/* Show name prominently, email as secondary info */}
+                <p className="text-mauve-700 font-medium">{guest.guestName}</p>
+                <p className="text-sm text-mauve-400">{guest.email} · {guest.groupName}</p>
             </div>
             <p className="text-xs text-mauve-400">{date}</p>
         </div>

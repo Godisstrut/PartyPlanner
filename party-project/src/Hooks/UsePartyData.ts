@@ -1,28 +1,25 @@
 import { useState, useEffect, useCallback } from "react"
-import { guestService, adminService } from "../Services/InviteService";
-import { eventService } from "../Services/EventService";
-import type { GuestView, Event, InviteWithDetails, InviteGroup } from "../Data/Database";
-
-// ─── useEvents ────────────────────────────────────────────────────────────────
-// Use this in the public /events page
+import { guestService, adminService } from "../Services/InviteService"
+import { eventService } from "../Services/EventService"
+import type { GuestView, Event, InviteWithDetails, InviteGroup } from "../Data/Database"
 
 export function useEvents() {
     const [events, setEvents] = useState<Event[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    useEffect(() => {
+    const load = useCallback(() => {
+        setLoading(true)
         eventService.getAll()
             .then(setEvents)
             .catch((e) => setError(e.message))
             .finally(() => setLoading(false))
     }, [])
 
-    return { events, loading, error }
-}
+    useEffect(() => { load() }, [load])
 
-// ─── useEvent ─────────────────────────────────────────────────────────────────
-// Use this in the public /events/:eventId page
+    return { events, loading, error, refetch: load }
+}
 
 export function useEvent(slug: string | undefined) {
     const [event, setEvent] = useState<Event | null>(null)
@@ -31,7 +28,6 @@ export function useEvent(slug: string | undefined) {
 
     useEffect(() => {
         if (!slug) { setLoading(false); return }
-
         eventService.getBySlug(slug)
             .then(setEvent)
             .catch((e) => setError(e.message))
@@ -40,9 +36,6 @@ export function useEvent(slug: string | undefined) {
 
     return { event, loading, error }
 }
-
-// ─── useGuestInvite ───────────────────────────────────────────────────────────
-// Use this in /invite/:token — resolves the token and exposes rsvp()
 
 export function useGuestInvite(token: string | undefined) {
     const [view, setView] = useState<GuestView | null>(null)
@@ -56,7 +49,6 @@ export function useGuestInvite(token: string | undefined) {
             setLoading(false)
             return
         }
-
         guestService.resolveToken(token)
             .then((resolved) => {
                 if (!resolved) setError("Ogiltig eller utgången inbjudan.")
@@ -66,12 +58,13 @@ export function useGuestInvite(token: string | undefined) {
             .finally(() => setLoading(false))
     }, [token])
 
+    // name is now accepted and forwarded to the service
     const rsvp = useCallback(
-        async (eventId: string, going: boolean) => {
+        async (eventId: string, going: boolean, name?: string) => {
             if (!token || !view) return
             setRsvping(true)
             try {
-                const updatedRsvps = await guestService.rsvp(token, eventId, going)
+                const updatedRsvps = await guestService.rsvp(token, eventId, going, name)
                 if (updatedRsvps) {
                     setView((prev) => prev ? { ...prev, rsvps: updatedRsvps } : prev)
                 }
@@ -86,9 +79,6 @@ export function useGuestInvite(token: string | undefined) {
 
     return { view, rsvp, rsvping, loading, error }
 }
-
-// ─── useAdminInvites ──────────────────────────────────────────────────────────
-// Use this in your admin dashboard
 
 export function useAdminInvites() {
     const [invites, setInvites] = useState<InviteWithDetails[]>([])

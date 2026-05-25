@@ -91,7 +91,8 @@ export const guestService = {
     async rsvp(
         token: string,
         eventId: string,
-        going: boolean
+        going: boolean, 
+        guestName?: string
     ): Promise<Record<string, boolean> | null> {
         // Re-resolve to get invite id and verify this event is in their group
         const view = await guestService.resolveToken(token)
@@ -110,6 +111,7 @@ export const guestService = {
                     invite_id: view.invite.id,
                     event_id: eventId,
                     going,
+                    guest_name: guestName,
                 },
                 { onConflict: "invite_id,event_id" }
             )
