@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom"
-import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, XCircle, Clock } from "lucide-react"
+import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, Clock } from "lucide-react"
 import { useEvent } from "../Hooks/UsePartyData"
 import { useEventGuests } from "../Hooks/UseEventGuests"
 
@@ -33,7 +33,7 @@ function AdminEventDetails() {
             <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">← Admin</Link>
 
             <h1 className="text-3xl font-semibold text-mauve-700 mb-2">{event.title}</h1>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 my-6">
                 <p className="text-mauve-600 flex items-center gap-2"><Calendar size={16} />{event.date}</p>
                 <p className="text-mauve-600 flex items-center gap-2"><Clock8 size={16} />{event.time}</p>
                 <p className="text-mauve-600 flex items-center gap-2"><MapPinHouse size={16} />{event.location}</p>
@@ -45,10 +45,6 @@ function AdminEventDetails() {
                     <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-center">
                         <p className="text-3xl font-bold text-green-600">{summary.going.length}</p>
                         <p className="text-sm text-green-700 mt-1 uppercase tracking-wide">Kommer</p>
-                    </div>
-                    <div className="rounded-xl border border-mauve-200 bg-mauve-50 p-4 text-center">
-                        <p className="text-3xl font-bold text-mauve-500">{summary.declined.length}</p>
-                        <p className="text-sm text-mauve-600 mt-1 uppercase tracking-wide">Kan ej</p>
                     </div>
                     <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
                         <p className="text-3xl font-bold text-amber-600">{summary.pending.length}</p>
@@ -67,21 +63,6 @@ function AdminEventDetails() {
                     ) : (
                         <div className="flex flex-col gap-2">
                             {summary?.going.map((guest) => (
-                                <GuestRow key={guest.email} guest={guest} />
-                            ))}
-                        </div>
-                    )}
-                </section>
-
-                <section>
-                    <h2 className="flex items-center gap-2 text-lg font-semibold text-mauve-500 mb-3">
-                        <XCircle size={18} /> Kan inte komma ({summary?.declined.length ?? 0})
-                    </h2>
-                    {summary?.declined.length === 0 ? (
-                        <p className="text-mauve-400 text-sm pl-1">Ingen har tackat nej.</p>
-                    ) : (
-                        <div className="flex flex-col gap-2">
-                            {summary?.declined.map((guest) => (
                                 <GuestRow key={guest.email} guest={guest} />
                             ))}
                         </div>

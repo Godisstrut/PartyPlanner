@@ -11,20 +11,26 @@ type EventCardProps = {
     rsvpStatus?: boolean
 }
 
-function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) {
-    const [spots, setSpots] = useState(event.spots)
+function useSpots(eventId: string, totalSpots: number) {
+    const [spots, setSpots] = useState(totalSpots)
 
-    // Fetch live spot count directly — always fresh, no parent refetch needed
     useEffect(() => {
+        // Count going RSVPs directly — same source of truth as AdminEventDetails
         supabase
-            .from("events")
-            .select("spots")
-            .eq("id", event.id)
-            .single()
-            .then(({ data }) => {
-                if (data) setSpots(data.spots)
+            .from("rsvps")
+            .select("id", { count: "exact" })
+            .eq("event_id", eventId)
+            .eq("going", true)
+            .then(({ count }) => {
+                if (count !== null) setSpots(totalSpots - count)
             })
-    }, [event.id])
+    }, [eventId, totalSpots])
+
+    return spots
+}
+
+function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) {
+    const spots = useSpots(event.id, event.spots)
 
     return (
         <Link to={`${basePath}/${event.slug}`}>
