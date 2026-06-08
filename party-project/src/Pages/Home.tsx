@@ -27,7 +27,7 @@ function Home() {
 
     return (
         <motion.div
-            className="flex flex-col items-center justify-start pt-64 gap-2 text-white h-screen"
+            className="flex flex-col items-center justify-start pt-32 2x1:pt-64 gap-2 text-white h-screen"
             variants={container}
             initial="hidden"
             animate="show"
