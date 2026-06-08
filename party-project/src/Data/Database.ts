@@ -11,6 +11,7 @@ export type EventRow = {
     description: string
     spots: number
     created_at: string
+    image_url: string | null
 }
 
 export type InviteGroupRow = {
@@ -47,6 +48,7 @@ export type Event = {
     location: string
     description: string
     spots: number
+    imageUrl: string | null
 }
 
 export type InviteGroup = {

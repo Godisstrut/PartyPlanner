@@ -15,7 +15,6 @@ function Admin() {
     // Refetch events every time we navigate back to /admin
     useEffect(() => {
         refetch()
-        refresh()
     }, [location.key])
 
     const [email, setEmail] = useState("")

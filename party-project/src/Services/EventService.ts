@@ -11,6 +11,7 @@ function toEvent(row: EventRow): Event {
         location: row.location,
         description: row.description,
         spots: row.spots,
+        imageUrl: row.image_url
     }
 }
 
