@@ -29,7 +29,7 @@ function AdminEventDetails() {
     }
 
     return (
-        <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16">
+        <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16"> {/* Main container with padding and max width */ }
             <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">← Admin</Link>
 
             <h1 className="text-3xl font-semibold text-mauve-700 mb-2">{event.title}</h1>

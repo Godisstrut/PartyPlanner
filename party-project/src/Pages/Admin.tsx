@@ -17,11 +17,11 @@ function Admin() {
         refetch()
     }, [location.key])
 
-    const [email, setEmail] = useState("")
-    const [groupId, setGroupId] = useState("")
+    const [email, setEmail] = useState("") // State for email input, empty by default
+    const [groupId, setGroupId] = useState("") // State for selected group, empty by default
     const [successMsg, setSuccessMsg] = useState<string | null>(null)
     const [copiedToken, setCopiedToken] = useState<string | null>(null)
-    const [activeTab, setActiveTab] = useState<"events" | "invites">("events")
+    const [activeTab, setActiveTab] = useState<"events" | "invites">("events") // State to track which tab is active
 
     async function handleSend(e: React.ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -52,7 +52,7 @@ function Admin() {
                 <h1 className="font-heading text-4xl text-mauve-800">Pauls 60-årsfest</h1>
             </div>
 
-            <div className="max-w-9/10 mx-auto px-6 py-8 grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div className="max-w-9/10 mx-auto px-6 py-8 grid grid-cols-1 2xl:grid-cols-3 gap-8">
 
                 {/* Send invite form */}
                 <div className="xl:col-span-1">

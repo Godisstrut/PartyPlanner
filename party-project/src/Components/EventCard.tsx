@@ -36,7 +36,7 @@ function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) 
         <Link to={`${basePath}/${event.slug}`}>
             <motion.div className="group grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500">
                 <div className="h-64 w-full overflow-hidden rounded-lg" >
-                    {event.imageUrl
+                    {event.imageUrl // Image styling with a subtle zoom on hover
                         ? <img
                             src={event.imageUrl}
                             alt={event.title}
@@ -45,11 +45,11 @@ function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) 
                         : <div className="w-full h-full bg-linear-to-br from-pink-100 to-mauve-200" />
                     }
                 </div>
-            <div className="p-4">
+            <div className="p-4"> {/* Content section with event details */ }
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                     <h1 className="font-semibold text-lg lg:text-3xl text-mauve-700 group-hover:text-[#d4b96a] transition-colors duration-300">{event.title}</h1>
                     <div className="flex flex-wrap sm:flex-col items-end gap-1 md:shrink-0">
-                        <span className="font-medium text-xs lg:text-sm tracking-[0.2em] uppercase bg-pink-200 rounded-full px-4 py-1">
+                        <span className="font-medium text-xs xl:text-sm tracking-[0.2em] uppercase bg-pink-200 rounded-full px-4 py-1">
                             {spots} Platser kvar
                         </span>
                         {rsvpStatus === true && (

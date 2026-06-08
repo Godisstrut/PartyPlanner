@@ -4,9 +4,7 @@ import { useEvents } from "../Hooks/UsePartyData";
 import { motion } from "motion/react"
 
 function Events() {
-
-    
-    const {events, loading, error } = useEvents() // Hämta event-objekt från custom hook
+    const {events, loading, error } = useEvents() // Fetches list of events using custom hook
     console.log("events:", events, "loading:", loading, "error:", error) 
 
     return(
