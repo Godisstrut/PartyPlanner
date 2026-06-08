@@ -35,7 +35,7 @@ function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) 
     return (
         <Link to={`${basePath}/${event.slug}`}>
             <motion.div className="group grid-rows-2 h-11/12 bg-white hover:cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition duration-300 ease-in-out rounded-xl p-6 m-6 border border-mauve-200 hover:border-pink-500">
-                <div className="h-48 w-full overflow-hidden rounded-lg" >
+                <div className="h-64 w-full overflow-hidden rounded-lg" >
                     {event.imageUrl
                         ? <img
                             src={event.imageUrl}
