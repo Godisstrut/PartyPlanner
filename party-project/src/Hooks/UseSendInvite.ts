@@ -9,7 +9,7 @@ export type SentInvite = {
     groupName: string
 }
 
-export function useSendInvite() {
+export function useSendInvite() { // Custom hook for sending invites to guests, used in AdminInvites page
     const [sending, setSending] = useState(false)
     const [error, setError] = useState<string | null>(null)
 

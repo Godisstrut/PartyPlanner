@@ -2,7 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { easeInOut, motion } from "motion/react"
 import Button from "../Components/Button";
 
-function Home() {
+function Home() { // Home page that leads to the events guests are invited to 
     const [searchParams] = useSearchParams()
     const token = searchParams.get("token")
 
@@ -42,7 +42,7 @@ function Home() {
                 60 år
             </motion.h1>
             <motion.p variants={item} className="text-2xl text-mauve-600 p-4">
-                Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier.
+                Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier
             </motion.p>
 
             <motion.div variants={item}>

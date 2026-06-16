@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { Calendar, Clock8, MapPinHouse, Users } from "lucide-react"
 import { useEvent } from "../Hooks/UsePartyData";
 
-function EventDetail() {
+function EventDetail() { // Reference page that shows details for a specific event, not used in invites
     const { eventId } = useParams<{ eventId: string }>()
     const { event, loading, error } = useEvent(eventId)
 

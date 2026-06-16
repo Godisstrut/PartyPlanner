@@ -3,7 +3,7 @@ import { guestService, adminService } from "../Services/InviteService"
 import { eventService } from "../Services/EventService"
 import type { GuestView, Event, InviteWithDetails, InviteGroup } from "../Data/Database"
 
-export function useEvents() {
+export function useEvents() { // Custom hook to fetch all events, used on the Events page
     const [events, setEvents] = useState<Event[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export function useEvents() {
     return { events, loading, error, refetch: load }
 }
 
-export function useEvent(slug: string | undefined) {
+export function useEvent(slug: string | undefined) { // Custom hook to fetch details for specific event, used on the AdminEventDetails page
     const [event, setEvent] = useState<Event | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -58,13 +58,13 @@ export function useGuestInvite(token: string | undefined) {
             .finally(() => setLoading(false))
     }, [token])
 
-    // name is now accepted and forwarded to the service
+    
     const rsvp = useCallback(
-        async (eventId: string, going: boolean, name?: string) => {
+        async (eventId: string, going: boolean, name?: string, message?: string) => {
             if (!token || !view) return
             setRsvping(true)
             try {
-                const updatedRsvps = await guestService.rsvp(token, eventId, going, name)
+                 const updatedRsvps = await guestService.rsvp(token, eventId, going, name, message)
                 if (updatedRsvps) {
                     setView((prev) => prev ? { ...prev, rsvps: updatedRsvps } : prev)
                 }

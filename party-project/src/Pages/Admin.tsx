@@ -6,7 +6,7 @@ import { useSendInvite } from "../Hooks/UseSendInvite"
 import { Send, Copy, Check, Mail, Users, Calendar } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 
-function Admin() {
+function Admin() { // Admin page for managing events and invites
     const location = useLocation()
     const { events, loading: eventsLoading, refetch } = useEvents()
     const { invites, groups, loading: invitesLoading, refresh } = useAdminInvites()

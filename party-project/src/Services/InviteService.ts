@@ -92,7 +92,8 @@ export const guestService = {
         token: string,
         eventId: string,
         going: boolean, 
-        guestName?: string
+        guestName?: string,
+        message?: string
     ): Promise<Record<string, boolean> | null> {
         // Re-resolve to get invite id and verify this event is in their group
         const view = await guestService.resolveToken(token)
@@ -112,6 +113,7 @@ export const guestService = {
                     event_id: eventId,
                     going,
                     guest_name: guestName,
+                    message: message, 
                 },
                 { onConflict: "invite_id,event_id" }
             )

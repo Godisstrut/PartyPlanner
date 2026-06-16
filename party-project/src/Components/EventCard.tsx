@@ -11,7 +11,7 @@ type EventCardProps = {
     rsvpStatus?: boolean
 }
 
-function useSpots(eventId: string, totalSpots: number) {
+function useSpots(eventId: string, totalSpots: number) { // Custom hook to fetch the number of spots left for an event, based on RSVPs
     const [spots, setSpots] = useState(totalSpots)
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function useSpots(eventId: string, totalSpots: number) {
     return spots
 }
 
-function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) {
+function EventCard({ event, basePath = "/events", rsvpStatus }: EventCardProps) { // Card component for event details
     const spots = useSpots(event.id, event.spots)
 
     return (

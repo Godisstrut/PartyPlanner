@@ -1,9 +1,9 @@
 import { useParams, Link } from "react-router-dom"
-import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, Clock } from "lucide-react"
+import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, Clock, MessageSquare } from "lucide-react"
 import { useEvent } from "../Hooks/UsePartyData"
 import { useEventGuests } from "../Hooks/UseEventGuests"
 
-function AdminEventDetails() {
+function AdminEventDetails() { // Admin page for showing specific event details and guest list with RSVP status and messages
     const { eventId } = useParams<{ eventId: string }>()
     const { event, loading: eventLoading, error: eventError } = useEvent(eventId)
     const { summary, loading: guestsLoading, error: guestsError } = useEventGuests(eventId)
@@ -28,8 +28,11 @@ function AdminEventDetails() {
         )
     }
 
+    // Guests who left a message
+    const guestsWithMessages = summary?.going.filter(g => g.message) ?? []
+
     return (
-        <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16"> {/* Main container with padding and max width */ }
+        <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16">
             <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">← Admin</Link>
 
             <h1 className="text-3xl font-semibold text-mauve-700 mb-2">{event.title}</h1>
@@ -50,10 +53,16 @@ function AdminEventDetails() {
                         <p className="text-3xl font-bold text-amber-600">{summary.pending.length}</p>
                         <p className="text-sm text-amber-700 mt-1 uppercase tracking-wide">Ej svarat</p>
                     </div>
+                    <div className="rounded-xl border border-mauve-200 bg-mauve-50 p-4 text-center">
+                        <p className="text-3xl font-bold text-mauve-500">{guestsWithMessages.length}</p>
+                        <p className="text-sm text-mauve-600 mt-1 uppercase tracking-wide">Meddelanden</p>
+                    </div>
                 </div>
             )}
 
             <div className="flex flex-col gap-6">
+
+                {/* Going */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-green-700 mb-3">
                         <CheckCircle size={18} /> Kommer ({summary?.going.length ?? 0})
@@ -69,6 +78,7 @@ function AdminEventDetails() {
                     )}
                 </section>
 
+                {/* Pending */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-amber-600 mb-3">
                         <Clock size={18} /> Ej svarat ({summary?.pending.length ?? 0})
@@ -86,14 +96,32 @@ function AdminEventDetails() {
                         </div>
                     )}
                 </section>
+
+                {/* Messages */}
+                {guestsWithMessages.length > 0 && (
+                    <section>
+                        <h2 className="flex items-center gap-2 text-lg font-semibold text-mauve-600 mb-3">
+                            <MessageSquare size={18} /> Meddelanden ({guestsWithMessages.length})
+                        </h2>
+                        <div className="flex flex-col gap-3">
+                            {guestsWithMessages.map((guest) => (
+                                <div key={guest.email} className="rounded-lg border border-mauve-100 bg-white px-4 py-4">
+                                    <p className="text-mauve-700 font-medium text-sm mb-1">{guest.guestName}</p>
+                                    <p className="text-mauve-500 text-sm leading-relaxed italic">"{guest.message}"</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
             </div>
         </div>
     )
 }
 
-type GuestRowProps = { guest: { guestName: string; email: string; groupName: string; answeredAt: string } }
+type GuestRowProps = { guest: { guestName: string; email: string; groupName: string; answeredAt: string; message?: string } }
 
-function GuestRow({ guest }: GuestRowProps) {
+function GuestRow({ guest }: GuestRowProps) { // Displays individual guest info in the admin panel
     const date = new Date(guest.answeredAt).toLocaleDateString("sv-SE", {
         day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
     })
@@ -101,11 +129,17 @@ function GuestRow({ guest }: GuestRowProps) {
     return (
         <div className="flex items-center justify-between rounded-lg border border-mauve-100 bg-white px-4 py-3">
             <div>
-                {/* Show name prominently, email as secondary info */}
                 <p className="text-mauve-700 font-medium">{guest.guestName}</p>
                 <p className="text-sm text-mauve-400">{guest.email} · {guest.groupName}</p>
             </div>
-            <p className="text-xs text-mauve-400">{date}</p>
+            <div className="flex items-center gap-3">
+                {guest.message && (
+                    <span title={guest.message}>
+                        <MessageSquare size={14} className="text-mauve-300"/>
+                    </span>
+                )}
+                <p className="text-xs text-mauve-400">{date}</p>
+            </div>
         </div>
     )
 }

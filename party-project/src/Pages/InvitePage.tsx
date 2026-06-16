@@ -3,7 +3,7 @@ import { motion } from "motion/react"
 import { useGuestInvite } from "../Hooks/UsePartyData"
 import EventCard from "../Components/EventCard"
 
-function InvitePage() {
+function InvitePage() { // Page that shows all events guests are nvited to
     const { token } = useParams<{ token: string }>()
     const { view, loading, error } = useGuestInvite(token)
 

@@ -15,7 +15,7 @@ function toEvent(row: EventRow): Event {
     }
 }
 
-export const eventService = {
+export const eventService = { // Service for fetching event data, used by multiple hooks and pages
 
     // Fetch all events — used by the public /events page 
     async getAll(): Promise<Event[]> {

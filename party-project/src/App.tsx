@@ -9,7 +9,7 @@ import AdminEventDetails from './Pages/AdminEventDetails';
 import InviteEventDetail from './Pages/InviteEventDetail';
 import InvitePage from './Pages/InvitePage';
 
-function App() {
+function App() { // Main app component that sets up routing for different pages
   console.log("URL:", import.meta.env.VITE_SUPABASE_URL)
   return(
     <div className="flex flex-col min-h-screen bg-linear-to-b from-pink-100 to-mauve-100" >

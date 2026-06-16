@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 import { Calendar, Clock8, MapPinHouse, Users } from "lucide-react"
 import { useGuestInvite } from "../Hooks/UsePartyData"
 
-function InviteEventDetail() {
+function InviteEventDetail() { // Page that shows details for a specific event guest is invited to
     const { token, eventId } = useParams<{ token: string; eventId: string }>()
     const { view, rsvp, rsvping, loading, error } = useGuestInvite(token)
 
@@ -47,7 +47,7 @@ function InviteEventDetail() {
     async function handleRsvp(e: React.FormEvent) {
         e.preventDefault()
         if (!name.trim()) return
-        await rsvp(event!.id, true, name.trim())  // pass name through
+        await rsvp(event!.id, true, name.trim(), message.trim() || undefined) // pass name through
         setSubmitted(true)
     }
 

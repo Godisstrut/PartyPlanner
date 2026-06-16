@@ -7,6 +7,7 @@ export type EventGuest = {
     groupName: string
     going: boolean
     answeredAt: string
+    message?: string 
 }
 
 export type EventGuestSummary = {
@@ -16,7 +17,7 @@ export type EventGuestSummary = {
     spotsLeft: number
 }
 
-export function useEventGuests(eventSlug: string | undefined) {
+export function useEventGuests(eventSlug: string | undefined) { // Custom hook for fetching guest list and RSVP summary for specific event, used on AdminEventDetails
     const [summary, setSummary] = useState<EventGuestSummary | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -44,6 +45,7 @@ export function useEventGuests(eventSlug: string | undefined) {
                     going,
                     updated_at,
                     guest_name,
+                    message,
                     guest_invites (
                         email,
                         invite_groups ( name )
@@ -70,6 +72,8 @@ export function useEventGuests(eventSlug: string | undefined) {
                     groupName: row.guest_invites.invite_groups.name,
                     going: row.going,
                     answeredAt: row.updated_at,
+                    message: row.message ?? undefined,
+                    
                 }
                 answeredEmails.add(guest.email)
                 if (row.going) going.push(guest)

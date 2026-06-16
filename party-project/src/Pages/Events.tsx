@@ -3,7 +3,7 @@ import EventCard from "../Components/EventCard";
 import { useEvents } from "../Hooks/UsePartyData";
 import { motion } from "motion/react"
 
-function Events() {
+function Events() { // Page that shows all events
     const {events, loading, error } = useEvents() // Fetches list of events using custom hook
     console.log("events:", events, "loading:", loading, "error:", error) 
 
