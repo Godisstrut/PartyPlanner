@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import EventCard from "../Components/EventCard"
 import { useEvents, useAdminInvites } from "../Hooks/UsePartyData"
 import { useSendInvite } from "../Hooks/UseSendInvite"
@@ -206,12 +206,7 @@ function Admin() { // Admin page for managing events and invites
                                                     ? <><Check size={12} className="text-emerald-500" /> Kopierad</>
                                                     : <><Copy size={12} /> Länk</>}
                                             </button>
-                                            <Link
-                                                to={`/admin/${invite.token}`}
-                                                className="font-body text-xs border border-mauve-200 rounded-lg px-3 py-2 text-mauve-500 hover:border-mauve-400 hover:text-mauve-700 transition-colors duration-150"
-                                            >
-                                                Detaljer
-                                            </Link>
+                            
                                         </div>
                                     </motion.div>
                                 ))

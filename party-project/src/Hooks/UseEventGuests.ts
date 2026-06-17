@@ -25,7 +25,7 @@ export function useEventGuests(eventSlug: string | undefined) { // Custom hook f
     useEffect(() => {
         if (!eventSlug) { setLoading(false); return }
 
-        async function fetch() {
+        async function fetch() { // Fetches event details to get ID and total spots
             const { data: eventRow, error: eventError } = await supabase
                 .from("events")
                 .select("id, spots")

@@ -30,8 +30,7 @@ function Home() { // Home page that leads to the events guests are invited to
             className="flex flex-col items-center justify-start pt-32 2xl:pt-64 gap-2 text-white h-screen"
             variants={container}
             initial="hidden"
-            animate="show"
-        >
+            animate="show">
             <motion.p variants={item} className="text-xl text-mauve-700">
                 Du är härmed inbjuden till...
             </motion.p>
@@ -44,7 +43,6 @@ function Home() { // Home page that leads to the events guests are invited to
             <motion.p variants={item} className="text-2xl text-mauve-600 p-4">
                 Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier
             </motion.p>
-
             <motion.div variants={item}>
                 <Link to={eventsPath}>
                     <Button text={token ? "Se mina inbjudningar" : "Utforska alla fester"} />

@@ -37,7 +37,7 @@ export function useEvent(slug: string | undefined) { // Custom hook to fetch det
     return { event, loading, error }
 }
 
-export function useGuestInvite(token: string | undefined) {
+export function useGuestInvite(token: string | undefined) { // Custom hook to resolve guest invite token
     const [view, setView] = useState<GuestView | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -59,7 +59,7 @@ export function useGuestInvite(token: string | undefined) {
     }, [token])
 
     
-    const rsvp = useCallback(
+    const rsvp = useCallback( 
         async (eventId: string, going: boolean, name?: string, message?: string) => {
             if (!token || !view) return
             setRsvping(true)
@@ -80,7 +80,7 @@ export function useGuestInvite(token: string | undefined) {
     return { view, rsvp, rsvping, loading, error }
 }
 
-export function useAdminInvites() {
+export function useAdminInvites() { 
     const [invites, setInvites] = useState<InviteWithDetails[]>([])
     const [groups, setGroups] = useState<InviteGroup[]>([])
     const [loading, setLoading] = useState(true)
@@ -103,7 +103,7 @@ export function useAdminInvites() {
 
     useEffect(() => { refresh() }, [refresh])
 
-    const createInvite = useCallback(
+    const createInvite = useCallback( 
         async (email: string, groupId: string) => {
             const result = await adminService.createInvite(email, groupId)
             await refresh()

@@ -47,7 +47,7 @@ function InviteEventDetail() { // Page that shows details for a specific event g
     async function handleRsvp(e: React.FormEvent) {
         e.preventDefault()
         if (!name.trim()) return
-        await rsvp(event!.id, true, name.trim(), message.trim() || undefined) // pass name through
+        await rsvp(event!.id, true, name.trim(), message.trim() || undefined) // pass name and message through
         setSubmitted(true)
     }
 
