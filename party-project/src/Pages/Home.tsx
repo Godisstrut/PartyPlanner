@@ -27,20 +27,20 @@ function Home() { // Home page that leads to the events guests are invited to
 
     return (
         <motion.div
-            className="flex flex-col items-center justify-start pt-32 gap-2 text-white h-screen"
+            className="flex flex-col items-center justify-start pt-16 sm:pt-24 lg:pt-26 3xl:pt-64 gap-2 text-white min-h-screen px-4 text-center"
             variants={container}
             initial="hidden"
             animate="show">
-            <motion.p variants={item} className="text-xl text-mauve-700">
+            <motion.p variants={item} className="text-base sm:text-lg lg:text-xl text-mauve-700">
                 Du är härmed inbjuden till...
             </motion.p>
-            <motion.h1 variants={item} className="font-bold text-8xl text-mauve-700 m-2">
+            <motion.h1 variants={item} className="font-bold text-4xl sm:text-6xl lg:text-8xl text-mauve-700 m-2 leading-tight">
                 Pauls födelsedagsfester
             </motion.h1>
-            <motion.h1 variants={item} className="font-bold text-9xl text-pink-600 m-2">
+            <motion.h1 variants={item} className="font-bold text-6xl sm:text-7xl lg:text-9xl text-pink-600 m-2">
                 60 år
             </motion.h1>
-            <motion.p variants={item} className="text-2xl text-mauve-600 p-4">
+            <motion.p variants={item} className="text-base sm:text-lg lg:text-2xl text-mauve-600 p-4 max-w-xs sm:max-w-md lg:max-w-2xl">
                 Följ med på en oförglömlig upplevelse för att hylla sex fantastiska decennier
             </motion.p>
             <motion.div variants={item}>
