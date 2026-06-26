@@ -35,7 +35,7 @@ function Home() { // Home page that leads to the events guests are invited to
                 Du är härmed inbjuden till...
             </motion.p>
             <motion.h1 variants={item} className="font-bold text-4xl sm:text-6xl lg:text-8xl text-mauve-700 m-2 leading-tight">
-                Pauls födelsedagsfester
+                Paul och Åsas födelsedagsfester
             </motion.h1>
             <motion.h1 variants={item} className="font-bold text-6xl sm:text-7xl lg:text-9xl text-pink-600 m-2">
                 60 år

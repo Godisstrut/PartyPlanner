@@ -15,7 +15,7 @@ function Events() { // Page that shows all events
             <Link to="/" className="text-sm tracking-[0.3em] uppercase hover:underline transition-transform" >
                 ← Tillbaka
             </Link>
-            <h1 className=" font-semibold text-4xl lg:text-6xl text-mauve-700 " >Festerlighterna 🎉</h1>
+            <h1 className=" font-semibold text-4xl lg:text-6xl text-mauve-700 " >Festligheterna 🎉</h1>
             <p className="text-center md:text-left md:text-xl text-mauve-600 pt-6 " >Välj nedan vilken fest som tilltalar dig mest. Kom ihåg, man kan bara välja en!</p>
             {loading && (
                 <p className="text-mauve-500 mt-12 animate-pulse">Laddar fester...</p>
