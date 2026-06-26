@@ -160,7 +160,7 @@ function Admin() { // Admin page for managing events and invites
                             {eventsLoading ? (
                                 <p className="font-body text-sm text-mauve-400 animate-pulse">Laddar...</p>
                             ) : (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div className="grid grid-cols-1 xl:grid-cols-2 gap-2">
                                     {events.map((event) => (
                                         <EventCard key={event.id} event={event} basePath="/admin" />
                                     ))}

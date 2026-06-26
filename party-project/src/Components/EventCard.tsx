@@ -15,7 +15,7 @@ function useSpots(eventId: string, totalSpots: number) { // Custom hook to fetch
     const [spots, setSpots] = useState(totalSpots)
 
     useEffect(() => {
-        // Count going RSVPs directly — same source of truth as AdminEventDetails
+        // Count going RSVPs directly from database
         supabase
             .from("rsvps")
             .select("id", { count: "exact" })

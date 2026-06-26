@@ -24,7 +24,7 @@ function App() { // Main app component that sets up routing for different pages
           <Route path="/invite/:token/:eventId" element={<InviteEventDetail />} />
         </Routes>
       </div>
-      <Footer />
+      /<Footer />
     </div>
   )
 }

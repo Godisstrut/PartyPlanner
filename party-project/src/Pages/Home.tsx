@@ -27,7 +27,7 @@ function Home() { // Home page that leads to the events guests are invited to
 
     return (
         <motion.div
-            className="flex flex-col items-center justify-start pt-32 2xl:pt-64 gap-2 text-white h-screen"
+            className="flex flex-col items-center justify-start pt-32 gap-2 text-white h-screen"
             variants={container}
             initial="hidden"
             animate="show">

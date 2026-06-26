@@ -47,7 +47,7 @@ function EventDetail() { // Reference page that shows details for a specific eve
                 <p className="text-xl"><MapPinHouse className="inline-block mr-2" />{event.location}</p>
                 <p className="text-xl"><Users className="inline-block mr-2" />Antal platser kvar: {event.spots}</p>
             </div>
-            <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200">
+            <div className="max-w-2xl p-6 rounded-lg bg-white border border-mauve-200  ">
                 <h2 className="text-2xl text-mauve-600 pb-6">Boka din plats</h2>
                 <form className="flex flex-col justify-start">
                     <label htmlFor="name" className="text-xl text-mauve-700">Namn:</label>
