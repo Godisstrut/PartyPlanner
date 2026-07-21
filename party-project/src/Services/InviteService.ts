@@ -120,6 +120,14 @@ export const guestService = {
 
         if (error) throw new Error(`Failed to save RSVP: ${error.message}`)
 
+        if (going) {
+            supabase.functions
+                .invoke("send-confirmation", {
+                    body: { inviteId: view.invite.id, eventId, guestName },
+                })
+                .catch((err) => console.error("Confirmation email failed:", err))
+}
+
         // Return the updated rsvps map
         return { ...view.rsvps, [eventId]: going }
     },
