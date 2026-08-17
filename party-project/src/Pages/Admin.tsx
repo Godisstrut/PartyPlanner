@@ -7,6 +7,9 @@ import { Send, Copy, Check, Mail, Users, Calendar } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 
 function Admin() { // Admin page for managing events and invites
+    // State for authentication
+    const [authed, setAuthed] = useState(false)
+    const [pw, setPw] = useState("")
     const location = useLocation()
     const { events, loading: eventsLoading, refetch } = useEvents()
     const { invites, groups, loading: invitesLoading, refresh } = useAdminInvites()
@@ -22,7 +25,28 @@ function Admin() { // Admin page for managing events and invites
     const [successMsg, setSuccessMsg] = useState<string | null>(null)
     const [copiedToken, setCopiedToken] = useState<string | null>(null)
     const [activeTab, setActiveTab] = useState<"events" | "invites">("events") // State to track which tab is active
-
+// If not authenticated, show password input. Used for protection of admin page
+if (!authed) return (
+    <div className="min-h-screen flex items-center justify-center bg-cream-100">
+        <div className="bg-white rounded-2xl border border-mauve-100 p-8 flex flex-col gap-4 w-80">
+            <h1 className="font-heading text-2xl text-mauve-700 text-center">Admin</h1>
+            <input
+                type="password"
+                value={pw}
+                onChange={e => setPw(e.target.value)}
+                placeholder="Lösenord"
+                className="border border-mauve-200 rounded-xl px-4 py-3 text-mauve-700"
+                onKeyDown={e => e.key === "Enter" && pw === import.meta.env.VITE_ADMIN_PASSWORD && setAuthed(true)}
+            />
+            <button
+                onClick={() => pw === import.meta.env.VITE_ADMIN_PASSWORD && setAuthed(true)}
+                className="bg-mauve-700 text-white rounded-xl py-3 font-body text-sm tracking-widest uppercase"
+            >
+                Logga in
+            </button>
+        </div>
+    </div>
+)
     async function handleSend(e: React.ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
         if (!email || !groupId) return
