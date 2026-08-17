@@ -1,15 +1,65 @@
+import { useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, Clock, MessageSquare } from "lucide-react"
+import { Calendar, Clock8, MapPinHouse, Users, CheckCircle, Clock, MessageSquare, Bell, UserMinus } from "lucide-react"
 import { useEvent } from "../Hooks/UsePartyData"
 import { useEventGuests } from "../Hooks/UseEventGuests"
+import { supabase } from "../Lib/SupabaseClient"
 
-function AdminEventDetails() { // Admin page for showing specific event details and guest list with RSVP status and messages
+function AdminEventDetails() {
     const { eventId } = useParams<{ eventId: string }>()
     const { event, loading: eventLoading, error: eventError } = useEvent(eventId)
-    const { summary, loading: guestsLoading, error: guestsError } = useEventGuests(eventId)
+    const { summary, loading: guestsLoading, error: guestsError, refetch } = useEventGuests(eventId)
+
+    const [sending, setSending] = useState(false)
+    const [reminderMsg, setReminderMsg] = useState<string | null>(null)
+    const [removingEmail, setRemovingEmail] = useState<string | null>(null)
 
     const loading = eventLoading || guestsLoading
     const error = eventError || guestsError
+
+    async function handleSendReminders() {
+        if (!event) return
+        const confirmed = window.confirm(
+            `Skicka påminnelse till alla ${summary?.going.length ?? 0} gäster som anmält sig till ${event.title}?`
+        )
+        if (!confirmed) return
+
+        setSending(true)
+        setReminderMsg(null)
+        try {
+            const { data, error } = await supabase.functions.invoke("send-reminder", {
+                body: { eventId: event.id },
+            })
+            if (error) throw new Error(error.message)
+            setReminderMsg(`✓ Påminnelse skickad till ${data.sent} av ${data.total} gäster.`)
+        } catch (err: any) {
+            setReminderMsg(`Något gick fel: ${err.message}`)
+        } finally {
+            setSending(false)
+            setTimeout(() => setReminderMsg(null), 6000)
+        }
+    }
+
+    async function handleUnassign(inviteId: string, email: string) {
+        if (!event) return
+        const confirmed = window.confirm(
+            `Ta bort ${email} från ${event.title}? De får ett email om avbokningen.`
+        )
+        if (!confirmed) return
+
+        setRemovingEmail(email)
+        try {
+            const { error } = await supabase.functions.invoke("send-cancellation", {
+                body: { inviteId, eventId: event.id },
+            })
+            if (error) throw new Error(error.message)
+            refetch()  // refresh the guest list
+        } catch (err: any) {
+            alert(`Något gick fel: ${err.message}`)
+        } finally {
+            setRemovingEmail(null)
+        }
+    }
 
     if (loading) {
         return (
@@ -28,14 +78,35 @@ function AdminEventDetails() { // Admin page for showing specific event details 
         )
     }
 
-    // Guests who left a message
     const guestsWithMessages = summary?.going.filter(g => g.message) ?? []
 
     return (
         <div className="flex flex-col max-w-4xl mx-auto pt-24 px-6 pb-16">
             <Link to="/admin" className="text-sm tracking-[0.3em] uppercase hover:underline mb-6">← Admin</Link>
 
-            <h1 className="text-3xl font-semibold text-mauve-700 mb-2">{event.title}</h1>
+            {/* Header with reminder button */}
+            <div className="flex items-start justify-between gap-4 mb-2">
+                <h1 className="text-3xl font-semibold text-mauve-700">{event.title}</h1>
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                    <button
+                        onClick={handleSendReminders}
+                        disabled={sending || (summary?.going.length ?? 0) === 0}
+                        className="flex items-center gap-2 font-body text-xs font-bold tracking-[0.15em]
+                                   uppercase border border-mauve-200 rounded-xl px-4 py-2.5
+                                   text-mauve-600 hover:bg-mauve-700 hover:text-white hover:border-mauve-700
+                                   transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                        <Bell size={13} />
+                        {sending ? "Skickar..." : "Skicka påminnelse"}
+                    </button>
+                    {reminderMsg && (
+                        <p className={`text-xs font-body ${reminderMsg.startsWith("✓") ? "text-emerald-600" : "text-rose-500"}`}>
+                            {reminderMsg}
+                        </p>
+                    )}
+                </div>
+            </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-4 my-6">
                 <p className="text-mauve-600 flex items-center gap-2"><Calendar size={16} />{event.date}</p>
                 <p className="text-mauve-600 flex items-center gap-2"><Clock8 size={16} />{event.time}</p>
@@ -62,7 +133,6 @@ function AdminEventDetails() { // Admin page for showing specific event details 
 
             <div className="flex flex-col gap-6">
 
-                {/* Going */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-green-700 mb-3">
                         <CheckCircle size={18} /> Kommer ({summary?.going.length ?? 0})
@@ -72,13 +142,17 @@ function AdminEventDetails() { // Admin page for showing specific event details 
                     ) : (
                         <div className="flex flex-col gap-2">
                             {summary?.going.map((guest) => (
-                                <GuestRow key={guest.email} guest={guest} />
+                                <GuestRow
+                                    key={guest.email}
+                                    guest={guest}
+                                    onUnassign={handleUnassign}
+                                    removing={removingEmail === guest.email}
+                                />
                             ))}
                         </div>
                     )}
                 </section>
 
-                {/* Pending */}
                 <section>
                     <h2 className="flex items-center gap-2 text-lg font-semibold text-amber-600 mb-3">
                         <Clock size={18} /> Ej svarat ({summary?.pending.length ?? 0})
@@ -97,7 +171,6 @@ function AdminEventDetails() { // Admin page for showing specific event details 
                     )}
                 </section>
 
-                {/* Messages */}
                 {guestsWithMessages.length > 0 && (
                     <section>
                         <h2 className="flex items-center gap-2 text-lg font-semibold text-mauve-600 mb-3">
@@ -119,9 +192,15 @@ function AdminEventDetails() { // Admin page for showing specific event details 
     )
 }
 
-type GuestRowProps = { guest: { guestName: string; email: string; groupName: string; answeredAt: string; message?: string } }
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
-function GuestRow({ guest }: GuestRowProps) { // Displays individual guest info in the admin panel
+type GuestRowProps = {
+    guest: { inviteId: string; guestName: string; email: string; groupName: string; answeredAt: string; message?: string }
+    onUnassign: (inviteId: string, email: string) => void
+    removing: boolean
+}
+
+function GuestRow({ guest, onUnassign, removing }: GuestRowProps) {
     const date = new Date(guest.answeredAt).toLocaleDateString("sv-SE", {
         day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
     })
@@ -135,10 +214,22 @@ function GuestRow({ guest }: GuestRowProps) { // Displays individual guest info 
             <div className="flex items-center gap-3">
                 {guest.message && (
                     <span title={guest.message}>
-                        <MessageSquare size={14} className="text-mauve-300"/>
+                        <MessageSquare size={14} className="text-mauve-300" />
                     </span>
                 )}
                 <p className="text-xs text-mauve-400">{date}</p>
+                <button
+                    onClick={() => onUnassign(guest.inviteId, guest.email)}
+                    disabled={removing}
+                    title="Ta bort från festen"
+                    className="flex items-center gap-1 font-body text-xs border border-rose-200 rounded-lg
+                               px-2.5 py-1.5 text-rose-400 hover:bg-rose-500 hover:text-white
+                               hover:border-rose-500 transition-colors duration-150
+                               disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                    <UserMinus size={12} />
+                    {removing ? "..." : "Ta bort"}
+                </button>
             </div>
         </div>
     )
