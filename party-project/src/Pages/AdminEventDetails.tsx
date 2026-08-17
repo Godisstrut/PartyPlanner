@@ -94,7 +94,7 @@ function AdminEventDetails() {
                         className="flex items-center gap-2 font-body text-xs font-bold tracking-[0.15em]
                                    uppercase border border-mauve-200 rounded-xl px-4 py-2.5
                                    text-mauve-600 hover:bg-mauve-700 hover:text-white hover:border-mauve-700
-                                   transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                                   transition-colors duration-200 disabled:opacity-40 cursor-pointer"
                     >
                         <Bell size={13} />
                         {sending ? "Skickar..." : "Skicka påminnelse"}
@@ -192,7 +192,7 @@ function AdminEventDetails() {
     )
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// Sub-components 
 
 type GuestRowProps = {
     guest: { inviteId: string; guestName: string; email: string; groupName: string; answeredAt: string; message?: string }
@@ -225,7 +225,7 @@ function GuestRow({ guest, onUnassign, removing }: GuestRowProps) {
                     className="flex items-center gap-1 font-body text-xs border border-rose-200 rounded-lg
                                px-2.5 py-1.5 text-rose-400 hover:bg-rose-500 hover:text-white
                                hover:border-rose-500 transition-colors duration-150
-                               disabled:opacity-40 disabled:cursor-not-allowed"
+                               disabled:opacity-40 cursor-pointer"
                 >
                     <UserMinus size={12} />
                     {removing ? "..." : "Ta bort"}

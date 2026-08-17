@@ -36,7 +36,7 @@ function InvitePage() { // Page that shows all events guests are invited to
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}>
-            <h1 className="font-semibold text-6xl text-mauve-700">Festerlighterna</h1>
+            <h1 className="font-semibold text-4xl lg:text-6xl text-mauve-700">Festligheterna 🎉</h1>
 
             {bookedEvent ? (
                 // If the guest has already booked an event, shows that one prominently and locks others
@@ -57,7 +57,7 @@ function InvitePage() { // Page that shows all events guests are invited to
                         </p>
                     </motion.div>
 
-                    {/* Show all cards but locked — only the booked one is clickable */}
+                    {/* Show all cards but locked, only the booked one is clickable */}
                     <div className="grid grid-cols-1 xl:grid-cols-2 w-11/12 mt-4 p-4 gap-4">
                         {view.events.map((event) => {
                             const isBooked = event.id === bookedEventId
